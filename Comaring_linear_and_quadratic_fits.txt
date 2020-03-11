@@ -1,0 +1,261 @@
+### comparing the fits of linear and quadratic models in R
+## Author: Sean Stankowski
+
+#####################
+
+dev.new(width=8, height=8) ###plot dimensions
+		par( mfrow = c( 2, 3 ) )
+		par(mar=c(4,4,4,4)) ###margins bot,left,top,right
+
+		point_size = 1.5 ## parameter that controls the point size
+
+############################################### comparing diff traits within species ####################################
+
+##################### H. melpomone ####################
+		
+	## set working directory and red in data
+			setwd("/Users/seanstankowski18/Documents/Projects/heliconius/quadratic_linear_fitting")
+			melp <- read.csv("melp_qt_plot.csv", header=TRUE) 
+	
+	###define trait variables, x and y
+			y_trait <- melp$yb ##define a variable for yb...
+			y_trait2 <- y_trait^2 ## ...and y squared 
+			x_trait <- melp$irid ##define x_trait
+	
+	##define and fit the quadratic
+			quadratic.model <- lm(x_trait ~ y_trait + y_trait2) ## define and fit the quadratic model
+		## Solve a vector of values predicted from values so  plot the curve
+			min <- min(y_trait, na.rm = T) ## find the min of trait_x
+			max <- max(y_trait, na.rm = T) ## find the max of trait_x
+			y_trait_values <- seq(min, max, 0.001) ##make the vector of 1 k numbers spanning x_min and x_max
+			predictedvalues <- predict(quadratic.model,list(y_trait=y_trait_values, y_trait2=y_trait_values^2)) ##predict using quadratic model
+		## make a plot
+			plot(x_trait,y_trait, xlab = "mean iridescence", ylab = "Frequency of yb", cex=point_size)
+			lines(predictedvalues, y_trait_values, col = "red", lwd = 3) ## add the quadratic fit to 	
+	### Linear_Fit
+		linear.model <- lm(x_trait~y_trait)
+		abline(lm(y_trait~x_trait),  col = "blue", lwd = 3) ## add linear model to the plot
+		
+	### Summary of model fits	
+		summary(linear.model)
+		summary(quadratic.model) ## summary of the quadratic model
+		
+
+#################### irid~hi
+
+	## set working directory and red in data
+			setwd("/Users/seanstankowski18/Documents/Projects/heliconius/quadratic_linear_fitting")
+			melp <- read.csv("melp_qt_plot.csv", header=TRUE) 
+			
+	###define trait variables, x and y
+			y_trait <- melp$hi ##define a variable for yb...
+			y_trait2 <- y_trait^2 ## ...and y squared 
+			x_trait <- melp$irid ##define x_trait
+		
+	##define and fit the quadratic
+			quadratic.model <- lm(x_trait ~ y_trait + y_trait2) ## define and fit the quadratic model
+		## Solve a vector of values predicted from values so  plot the curve
+			min <- min(y_trait, na.rm = T) ## find the min of trait_x
+			max <- max(x_trait, na.rm = T) ## find the max of trait_x
+			y_trait_values <- seq(min, max, 0.001) ##make the vector of 1 k numbers spanning x_min and x_max
+			predictedvalues <- predict(quadratic.model,list(y_trait=y_trait_values, y_trait2=y_trait_values^2)) ##predict using quadratic model
+		## make a plot
+			plot(x_trait,y_trait, xlab = "mean iridescence", ylab = "Mean hybrid index", cex=point_size)
+			lines(predictedvalues, y_trait_values, col = "red", lwd = 3) ## add the quadratic fit to 	
+	### Linear_Fit
+		linear.model <- lm(x_trait~y_trait)
+		abline(lm(y_trait~x_trait),  col = "blue", lwd = 3) ## add linear model to the plot
+		
+		
+	### Summary of model fits	
+		summary(linear.model)
+		summary(quadratic.model) ## summary of the quadratic model
+		
+
+	#################### yb~hi
+
+	## set working directory and red in data
+			setwd("/Users/seanstankowski18/Documents/Projects/heliconius/quadratic_linear_fitting")
+			melp <- read.csv("melp_qt_plot.csv", header=TRUE) 
+		
+	###define trait variables, x and y
+			y_trait <- melp$hi ##define a variable for yb...
+			y_trait2 <- y_trait^2 ## ...and y squared 
+			x_trait <- melp$yb ##define x_trait
+			
+	##define and fit the quadratic
+			quadratic.model <- lm(x_trait ~ y_trait + y_trait2) ## define and fit the quadratic model
+		## Solve a vector of values predicted from values so  plot the curve
+			min <- min(y_trait, na.rm = T) ## find the min of trait_x
+			max <- max(x_trait, na.rm = T) ## find the max of trait_x
+			y_trait_values <- seq(min, 0.7, 0.001) ##make the vector of 1 k numbers spanning x_min and x_max
+			predictedvalues <- predict(quadratic.model,list(y_trait=y_trait_values, y_trait2=y_trait_values^2)) ##predict using quadratic model
+		## make a plot
+			plot(x_trait,y_trait, xlab = "Frequency yb", ylab = "Mean hybrid index", cex=point_size)
+			lines(predictedvalues, y_trait_values, col = "red", lwd = 3) ## add the quadratic fit to 	
+	### Linear_Fit
+		linear.model <- lm(x_trait~y_trait)
+		abline(lm(y_trait~x_trait),  col = "blue", lwd = 3) ## add linear model to the plot
+		
+	### Summary of model fits	
+		summary(linear.model)
+		summary(quadratic.model) ## summary of the quadratic model
+
+
+################### H. erato ####################
+	
+	################# H. melp
+
+	## set working directory and red in data
+			setwd("/Users/seanstankowski18/Documents/Projects/heliconius/quadratic_linear_fitting")
+			melp <- read.csv("erato_qt_plot.csv", header=TRUE) 
+			
+	###define trait variables, x and y
+			y_trait <- melp$yb ##define a variable for y...
+			y_trait2 <- y_trait^2 ## ...and y squared 
+			x_trait <- melp$irid ##define x_trait
+		
+	##define and fit the quadratic
+			quadratic.model <- lm(x_trait ~ y_trait + y_trait2) ## define and fit the quadratic model
+		## Solve a vector of values predicted from values so  plot the curve
+			min <- min(y_trait, na.rm = T) ## find the min of trait_y
+			max <- max(y_trait, na.rm = T) ## find the max of trait_y
+			y_trait_values <- seq(min, max, 0.001) ##make the vector of 1 k numbers spanning x_min and x_max
+			predictedvalues <- predict(quadratic.model,list(y_trait=y_trait_values, y_trait2=y_trait_values^2)) ##predict using quadratic model
+		#		## make a plot
+			plot(x_trait,y_trait, xlab = "mean iridescence", ylab = "Frequency of yb", cex=point_size)
+			lines(predictedvalues, y_trait_values, col = "red", lwd = 3) ## add the quadratic fit to 	
+	### Linear_Fit
+		linear.model <- lm(x_trait~y_trait)
+		abline(lm(y_trait~x_trait),  col = "blue", lwd = 3) ## add linear model to the plot
+		
+	### Summary of model fits	
+		summary(linear.model)
+		summary(quadratic.model) ## summary of the quadratic model
+
+		
+	#################### irid~hi
+	
+	## set working directory and red in data
+			setwd("/Users/seanstankowski18/Documents/Projects/heliconius/quadratic_linear_fitting")
+			melp <- read.csv("erato_qt_plot.csv", header=TRUE) 
+
+	###define trait variables, x and y
+			y_trait <- melp$hi ##define a variable for yb...
+			y_trait2 <- y_trait^2 ## ...and y squared 
+			x_trait <- melp$irid ##define x_trait
+	
+	##define and fit the quadratic
+			quadratic.model <- lm(x_trait ~ y_trait + y_trait2) ## define and fit the quadratic model
+		## Solve a vector of values predicted from values so  plot the curve
+			min <- min(y_trait, na.rm = T) ## find the min of trait_x
+			max <- max(x_trait, na.rm = T) ## find the max of trait_x
+			y_trait_values <- seq(min, max, 0.001) ##make the vector of 1 k numbers spanning x_min and x_max
+			predictedvalues <- predict(quadratic.model,list(y_trait=y_trait_values, y_trait2=y_trait_values^2)) ##predict using quadratic model
+		## make a plot
+			plot(x_trait,y_trait, xlab = "mean iridescence", ylab = "Mean hybrid index", cex=point_size)
+			lines(predictedvalues, y_trait_values, col = "red", lwd = 3) ## add the quadratic fit to 	
+	### Linear_Fit
+		linear.model <- lm(x_trait~y_trait)
+		abline(lm(y_trait~x_trait),  col = "blue", lwd = 3) ## add linear model to the plot
+		
+	### Summary of model fits	
+		summary(linear.model)
+		summary(quadratic.model) ## summary of the quadratic model
+
+
+	#################### yb~hi
+
+	## set working directory and red in data
+			setwd("/Users/seanstankowski18/Documents/Projects/heliconius/quadratic_linear_fitting")
+			melp <- read.csv("erato_qt_plot.csv", header=TRUE) 
+			
+	###define trait variables, x and y
+			y_trait <- melp$hi ##define a variable for yb...
+			y_trait2 <- y_trait^2 ## ...and y squared 
+			x_trait <- melp$yb ##define x_trait
+	
+		##define and fit the quadratic
+			quadratic.model <- lm(x_trait ~ y_trait + y_trait2) ## define and fit the quadratic model
+		## Solve a vector of values predicted from values so  plot the curve
+			min <- min(y_trait, na.rm = T) ## find the min of trait_x
+			max <- max(x_trait, na.rm = T) ## find the max of trait_x
+			y_trait_values <- seq(min, max, 0.001) ##make the vector of 1 k numbers spanning x_min and x_max
+			predictedvalues <- predict(quadratic.model,list(y_trait=y_trait_values, y_trait2=y_trait_values^2)) ##predict using quadratic model
+		## make a plot
+			plot(x_trait,y_trait, xlab = "Frequency yb", ylab = "Mean hybrid index", cex=point_size)
+			lines(predictedvalues, y_trait_values, col = "red", lwd = 3) ## add the quadratic fit to 	
+	### Linear_Fit
+		linear.model <- lm(x_trait~y_trait)
+		abline(lm(y_trait~x_trait),  col = "blue", lwd = 3) ## add linear model to the plot
+		
+	### Summary of model fits	
+		summary(linear.model)
+		summary(quadratic.model) ## summary of the quadratic model
+
+
+############################################### comparing same traits within species ####################################
+
+dev.new(width=8, height=8) ###plot dimensions
+		par( mfrow = c( 1, 2 ) )
+		par(mar=c(4,4,4,4)) ###margins bot,left,top,right
+
+		point_size = 1.5 ## parameter that controls the point size
+
+###############yb erato~melp 
+
+	## set working directory and red in data
+			setwd("/Users/seanstankowski18/Documents/Projects/heliconius/quadratic_linear_fitting")
+			both_sp <- read.csv("melp_erato_irid_and_yb.csv", header=TRUE) 
+			
+   	###define trait variables, x and y
+			y_trait <- both_sp$melp_yb ##define a variable for yb...
+			y_trait2 <- y_trait^2 ## ...and y squared 
+			x_trait <- both_sp$erato_yb ##define x_trait
+	
+	##define and fit the quadratic
+			quadratic.model <- lm(x_trait ~ y_trait + y_trait2) ## define and fit the quadratic model
+		## Solve a vector of values predicted from values so  plot the curve
+			min <- min(y_trait, na.rm = T) ## find the min of trait_x
+			max <- max(y_trait, na.rm = T) ## find the max of trait_x
+			y_trait_values <- seq(min, max, 0.001) ##make the vector of 1 k numbers spanning x_min and x_max
+			predictedvalues <- predict(quadratic.model,list(y_trait=y_trait_values, y_trait2=y_trait_values^2)) ##predict using quadratic model
+		## make a plot
+			plot(x_trait,y_trait, xlab = "mean iridescence", ylab = "Frequency of yb", cex=point_size)
+			lines(predictedvalues, y_trait_values, col = "red", lwd = 3) ## add the quadratic fit to 	
+	### Linear_Fit
+		linear.model <- lm(x_trait~y_trait)
+		abline(lm(y_trait~x_trait),  col = "blue", lwd = 3) ## add linear model to the plot
+		
+	### Summary of model fits	
+		summary(linear.model)
+		summary(quadratic.model) ## summary of the quadratic model
+
+###############irid erato~melp 
+
+	## set working directory and red in data
+			setwd("/Users/seanstankowski18/Documents/Projects/heliconius/quadratic_linear_fitting")
+			both_sp <- read.csv("melp_erato_irid_and_yb.csv", header=TRUE) 
+			
+   	###define trait variables, x and y
+			y_trait <- both_sp$melp_irid ##define a variable for yb...
+			y_trait2 <- y_trait^2 ## ...and y squared 
+			x_trait <- both_sp$erato_irid ##define x_trait
+	
+	##define and fit the quadratic
+			quadratic.model <- lm(x_trait ~ y_trait + y_trait2) ## define and fit the quadratic model
+		## Solve a vector of values predicted from values so  plot the curve
+			min <- min(y_trait, na.rm = T) ## find the min of trait_x
+			max <- max(y_trait, na.rm = T) ## find the max of trait_x
+			y_trait_values <- seq(min, max, 0.001) ##make the vector of 1 k numbers spanning x_min and x_max
+			predictedvalues <- predict(quadratic.model,list(y_trait=y_trait_values, y_trait2=y_trait_values^2)) ##predict using quadratic model
+		## make a plot
+			plot(x_trait,y_trait, xlab = "mean iridescence", ylab = "Frequency of yb", cex=point_size)
+			lines(predictedvalues, y_trait_values, col = "red", lwd = 3) ## add the quadratic fit to 	
+	### Linear_Fit
+		linear.model <- lm(x_trait~y_trait)
+		abline(lm(y_trait~x_trait),  col = "blue", lwd = 3) ## add linear model to the plot
+		
+	### Summary of model fits	
+		summary(linear.model)
+		summary(quadratic.model) ## summary of the quadratic model
